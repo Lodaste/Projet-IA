@@ -1,6 +1,6 @@
 package Syntaxe;
 
-public record Element(String mot, boolean VraiOuFaux)
+public record Fait(String mot, boolean VraiOuFaux)
 {
     @Override
     public String toString()
