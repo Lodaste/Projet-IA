@@ -21,5 +21,5 @@ public class App {
         MoteurZERO moteur = new MoteurZERO(fait5, new ArrayList<>(List.of(fait1, fait3)), new ArrayList<>(List.of(regle1, regle2)));
         moteur.chainageAvant();
         moteur.chainageArriere();
-    }
+    } //Modif inutile
 }
