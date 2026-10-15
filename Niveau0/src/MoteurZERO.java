@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+
+import Syntaxe.Fait;
+import Syntaxe.Regle;
 public class MoteurZERO extends Moteur{ 
     int nbInf = 0;
     boolean infAFaire = true;

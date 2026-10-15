@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+
+import Syntaxe.Fait;
 public class BaseFaits {
     ArrayList<Fait> faits;
     public BaseFaits(){

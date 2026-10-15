@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+import Syntaxe.Fait;
+import Syntaxe.Regle;
+
 public abstract class Moteur {
     ArrayList<Fait> BF;
     ArrayList<Regle> BR;
