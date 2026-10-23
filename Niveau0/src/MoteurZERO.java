@@ -3,19 +3,20 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import Syntaxe.BaseFaits;
 import Syntaxe.Fait;
 import Syntaxe.Regle;
 public class MoteurZERO
 {
-    public MoteurZERO(List<Regle> BR, Map<String, Boolean> BF) 
+    public MoteurZERO(List<Regle> BR, BaseFaits BF) 
     {
         this.BR = BR;
         this.BF = BF;
     }
     List<Regle> BR;
-    Map<String, Boolean> BF;
+    BaseFaits BF;
 
-    public boolean VF (Fait f) {return BF.get(f.mot());}
+    public boolean VF (Fait f) {return BF.VF(f.mot());}
 
     public boolean VA (String mot, Regle r)
     {
@@ -59,7 +60,9 @@ public class MoteurZERO
                 {
                     if (declenchable) 
                     {
-                        if(BF.containsKey(fait.mot()) && (VF(fait) != VA(fait.mot(), regle)) || (!BF.containsKey(fait.mot())))
+                        if(fait.mot().equals("Il pleut"))
+                            System.out.println(BF.contains(fait.mot()) + " " +VF(fait) + " " + VA(fait.mot(), regle) + " " + !BF.contains(fait.mot()));
+                        if(BF.contains(fait.mot()) && (VF(fait) != VA(fait.mot(), regle)) || (!BF.contains(fait.mot()))) 
                             declenchable = false;   
                     }       
                 }
@@ -68,7 +71,7 @@ public class MoteurZERO
                 {
                     for (Fait fait : regle.consequent())  //Ajout des conséquents dans la base de fait
                     {
-                        BF.put(fait.mot(), fait.VraiOuFaux());
+                        BF.add(fait);
                     }
                     
                     iterator.remove(); //retirer la règle courante si déclenchée
@@ -81,9 +84,7 @@ public class MoteurZERO
             }
         }
 
-        for (Map.Entry<String, Boolean> entry : BF.entrySet()) {
-        System.out.println("Clé : " + entry.getKey() + " | Valeur : " + entry.getValue());
-        }
+        System.out.println(BF.toString());
 
     }
 }
