@@ -16,6 +16,9 @@ public class MoteurZERO
     List<Regle> BR;
     BaseFaits BF;
 
+    BaseFaits demandables; // Faire un type propre
+
+
     public boolean VF (Fait f) {return BF.VF(f.mot());}
 
     public boolean VA (String mot, Regle r)
@@ -87,4 +90,69 @@ public class MoteurZERO
         System.out.println(BF.toString());
 
     }
+
+    public void chainageArriere(Fait but)
+    {
+        if(demo(but))
+            System.out.println("Le fait " + but.toString() + " est bien déductible"); 
+        else
+            System.out.println("Le fait " + but.toString() + " n'a pas pu être déduis");  
+    }
+
+    private boolean demo(Fait but)
+    {
+        boolean dem;
+
+        //*Premier cas évident
+        dem = BF.belongs(but); // Si le but est dans la BF -> vrai sinon faux
+
+        //*Deuxième cas : rechercher si b détectible à partir de BR UNION BF
+        for (Regle regle : BR) //pour tout r qui appartient à la BR
+        {
+            if (regle.belongsInConsequent(but)) // et b qui appartient aux Conséquents de la règle courante
+            {
+                //TANT que dem = faux : dem <-VERIF
+                while(!dem)
+                {
+                    dem = verif(regle.antecedent());
+                }
+            }
+        }
+
+        //*Troisième cas : sinon : voir si b est demandable */
+        if(!dem && demandables.belongs(but)) //-Si le but est dans les demandables
+        {
+            dem = question(but);
+        }
+
+
+        if(dem)
+            BF.add(but);
+        
+        return dem;
+    }
+
+
+    private boolean verif(List<Fait> B)
+    {
+        boolean verite = true;
+
+        for (Fait fait : B) 
+        {
+            while (verite)
+            {
+                verite = demo(fait);
+            }
+                
+        }
+        return verite;
+    }
+
+    private boolean question(Fait but )
+    {
+        //blabla
+        return false; // true - inconnu ?
+    }
+
+
 }

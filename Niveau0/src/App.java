@@ -29,7 +29,7 @@ public class App {
         BR.add(regle1);
         BR.add(regle2);
         BR.add(regle3);
-        //BR.add(regle4);
+        BR.add(regle4);
             System.out.println(regle1);
         System.out.println(regle2);
 

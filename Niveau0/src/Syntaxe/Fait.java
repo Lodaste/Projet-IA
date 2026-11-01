@@ -7,4 +7,9 @@ public record Fait(String mot, boolean VraiOuFaux)
     {
         return VraiOuFaux ? mot : "NON " + mot;
     }
+
+    public Fait(String mot)
+    {
+        this(mot, true);
+    }
 }

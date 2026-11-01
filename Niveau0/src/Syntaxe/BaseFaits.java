@@ -22,10 +22,20 @@ public class BaseFaits
         faits.addLast(fait);
     }
 
-    public boolean contains(String mot)
+    public boolean contains(String mot) //retourne Vrai si le mot est dans dans la base de fait
     {
         for (Fait fait : faits) {
             if(fait.mot().equals(mot))
+                return true;
+        }
+        return false;
+    }
+
+    public boolean belongs(Fait but)
+    {
+        for (Fait fait : faits) 
+        {
+            if(fait.mot().equals(but.mot()) && fait.VraiOuFaux() == but.VraiOuFaux())
                 return true;
         }
         return false;
