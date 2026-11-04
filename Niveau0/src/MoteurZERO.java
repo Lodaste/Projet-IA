@@ -64,8 +64,8 @@ public class MoteurZERO
                 {
                     if (declenchable) 
                     {
-                        if(fait.mot().equals("Il pleut"))
-                            System.out.println(BF.contains(fait.mot()) + " " +VF(fait) + " " + VA(fait.mot(), regle) + " " + !BF.contains(fait.mot()));
+                        //if(fait.mot().equals("Il pleut"))
+                            //System.out.println(BF.contains(fait.mot()) + " " +VF(fait) + " " + VA(fait.mot(), regle) + " " + !BF.contains(fait.mot()));
                         if(BF.contains(fait.mot()) && (VF(fait) != VA(fait.mot(), regle)) || (!BF.contains(fait.mot()))) 
                             declenchable = false;   
                     }       
