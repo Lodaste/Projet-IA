@@ -1,5 +1,7 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -13,6 +15,14 @@ public class MoteurZERO
     {
         this.BR = BR;
         this.BF = BF;
+        demandables = new LinkedList<>();
+    }
+
+    public MoteurZERO(List<Regle> BR, BaseFaits BF, List<String> demandables) 
+    {
+        this.BR = BR;
+        this.BF = BF;
+        this.demandables = demandables;
     }
     List<Regle> BR;
     BaseFaits BF;
@@ -102,7 +112,8 @@ public class MoteurZERO
 
     private boolean demo(Fait but)
     {
-        boolean dem;
+        System.out.println("A");
+        boolean dem = false;
 
         //*Premier cas évident
         dem = BF.belongs(but); // Si le but est dans la BF -> vrai sinon faux
@@ -113,7 +124,7 @@ public class MoteurZERO
             if (regle.belongsInConsequent(but)) // et b qui appartient aux Conséquents de la règle courante
             {
                 //TANT que dem = faux : dem <-VERIF
-                while(!dem)
+                if(!dem)
                 {
                     dem = verif(regle.antecedent());
                 }
@@ -136,11 +147,12 @@ public class MoteurZERO
 
     private boolean verif(List<Fait> B)
     {
+        
         boolean verite = true;
 
         for (Fait fait : B) 
         {
-            while (verite)
+            if (verite)
             {
                 verite = demo(fait);
             }
