@@ -47,6 +47,7 @@ public class App {
 
         BaseFaits BF2 = new BaseFaits();
         BF2.add(new Fait("Le ciel est gris"));
+        BF2.add(new Fait("Le sol est mouillé"));
 
         List<Regle> BR2 = new LinkedList<>();
         
