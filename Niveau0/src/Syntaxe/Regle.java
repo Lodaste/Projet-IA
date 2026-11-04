@@ -12,4 +12,14 @@ public record Regle(String nom, List<Fait> antecedent, List<Fait> consequent) {
             + " -> "
             + consequent.stream().map(Fait::toString).collect(Collectors.joining(" ET "));
     }
+
+    public boolean belongsInConsequent(Fait but)
+    {
+        for (Fait fait : consequent) 
+        {
+            if(fait.mot().equals(but.mot()) && fait.VraiOuFaux() == but.VraiOuFaux())
+                return true;
+        }
+        return false;
+    }
 }
