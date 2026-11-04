@@ -1,9 +1,6 @@
-import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 import Syntaxe.BaseFaits;
@@ -15,7 +12,7 @@ public class MoteurZERO
     {
         this.BR = BR;
         this.BF = BF;
-        demandables = new LinkedList<>();
+
     }
 
     public MoteurZERO(List<Regle> BR, BaseFaits BF, List<String> demandables) 
@@ -74,8 +71,6 @@ public class MoteurZERO
                 {
                     if (declenchable) 
                     {
-                        //if(fait.mot().equals("Il pleut"))
-                            //System.out.println(BF.contains(fait.mot()) + " " +VF(fait) + " " + VA(fait.mot(), regle) + " " + !BF.contains(fait.mot()));
                         if(BF.contains(fait.mot()) && (VF(fait) != VA(fait.mot(), regle)) || (!BF.contains(fait.mot()))) 
                             declenchable = false;   
                     }       
@@ -112,7 +107,6 @@ public class MoteurZERO
 
     private boolean demo(Fait but)
     {
-        System.out.println("A");
         boolean dem = false;
 
         //*Premier cas évident
