@@ -2,6 +2,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 import Syntaxe.BaseFaits;
 import Syntaxe.Fait;
@@ -16,7 +17,7 @@ public class MoteurZERO
     List<Regle> BR;
     BaseFaits BF;
 
-    BaseFaits demandables; // Faire un type propre
+    List<String> demandables; // Faire un type propre
 
 
     public boolean VF (Fait f) {return BF.VF(f.mot());}
@@ -120,7 +121,7 @@ public class MoteurZERO
         }
 
         //*Troisième cas : sinon : voir si b est demandable */
-        if(!dem && demandables.belongs(but)) //-Si le but est dans les demandables
+        if(!dem && demandables.contains(but.mot())) //-Si le but est dans les demandables
         {
             dem = question(but);
         }
@@ -150,8 +151,17 @@ public class MoteurZERO
 
     private boolean question(Fait but )
     {
-        //blabla
-        return false; // true - inconnu ?
+        try ( Scanner scanner = new Scanner( System.in ) )
+        {    
+            while (scanner.hasNextBoolean()) 
+            {
+                System.out.print( "Quel valeur apportez vous au fait "+but.toString()+" ? Vrai (1) ou Faux (0) ?" );
+                return scanner.nextBoolean();
+            }    
+        }
+        
+        System.out.println("Erreur lors de la demande, la valeur du fait a été attribué à Faux");
+        return false;
     }
 
 
