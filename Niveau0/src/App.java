@@ -25,7 +25,7 @@ public class App
         Fait fait1 = new Fait("Il pleut", true);
         Fait fait2 = new Fait("Le ciel est gris", true);  
         Fait fait3 = new Fait("Il y a du vent", false);
-        BaseFaits BF = new BaseFaits(TypeBF.FAIT_INITIAUX);
+        BaseFaits BF = new BaseFaits(TypeBF.FAITS_INITIAUX);
         BF.add(fait1);
         BF.add(fait2);
         BF.add(fait3);
@@ -43,19 +43,12 @@ public class App
 
 
         MoteurZERO moteur = new MoteurZERO(BR, BF);
-
-        System.out.println("---Fait initiaux--- \n  " + fait1.toString() + "\n  " + fait2.toString() + "\n  " + fait3.toString());
-        System.out.println("---Liste des règles---");
-        for (Regle regle : BR) {
-            System.out.println("  " + regle.toString());
-        }
-
         moteur.chainageAvant();
     }
     
     static void TestArriere0()
     {
-        BaseFaits BF2 = new BaseFaits(TypeBF.FAIT_INITIAUX);
+        BaseFaits BF2 = new BaseFaits(TypeBF.FAITS_INITIAUX);
         
         //Fait faitCielGris = new Fait("Le ciel est gris");
         Fait faitCielBleu = new Fait("Le ciel est bleu", false);
@@ -63,7 +56,7 @@ public class App
 
         //BF2.add(faitCielGris);
         BF2.add(faitCielBleu);
-        BF2.add(faitSolMouille);
+        //BF2.add(faitSolMouille);
 
 
         List<Regle> BR2 = new LinkedList<>();
@@ -81,12 +74,6 @@ public class App
 
         Fait but = new Fait("Il fait sec", false);
 
-        System.out.println("---Fait initiaux--- \n  " + faitCielBleu.toString() + "\n  " + faitSolMouille.toString());
-        System.out.println("---Liste des règles---");
-        System.out.println("  --> On veut prouver : " + but.toString());
-        for (Regle regle : BR2) {
-            System.out.println("  " + regle.toString());
-        }
         //moteur2.chainageArriere(new Fait("Il pleut"));
         moteur2.chainageArriere(but);
     }

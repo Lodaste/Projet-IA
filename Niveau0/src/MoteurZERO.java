@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import Syntaxe.BaseFaits;
+import Syntaxe.BaseRegles;
 import Syntaxe.Fait;
 import Syntaxe.Regle;
 import Syntaxe.TypeBF;
@@ -12,11 +13,11 @@ public class MoteurZERO
 {
     public MoteurZERO(List<Regle> BR, BaseFaits BF) 
     {
-        this.BR = BR;
+        this.BR = new BaseRegles(BR); //A faire proprement avec les paquets de règles
         this.BF = BF;
     }
 
-    List<Regle> BR;
+   BaseRegles BR;
     BaseFaits BF;
 
     BaseFaits demandables; // Faire un type propre
@@ -49,13 +50,16 @@ public class MoteurZERO
 
     public void chainageAvant()
     {
+        BF.setType(TypeBF.FAITS_INITIAUX);
+        System.out.println(BF.toString());
+        System.out.println(BR.toString());
         inference = true;
         nbrInf = 0;
         Regle regle;
         while (inference)
         {
             inference = false;
-            Iterator<Regle> iterator = BR.iterator(); //Utilisation Iterator car possible suppression d'une règle de la BR plus tard
+            Iterator<Regle> iterator = BR.getRegles().iterator(); //Utilisation Iterator car possible suppression d'une règle de la BR plus tard
 
             while (iterator.hasNext()) 
             {
@@ -88,13 +92,20 @@ public class MoteurZERO
             }
         }
 
+        BF.setType(TypeBF.FAITS_FINAUX);
         System.out.println(BF.toString());
 
     }
 
     public void chainageArriere(Fait but)
     {
+        System.out.println(BF.toString());
+        System.out.println(BR.toString());
         demandables = new BaseFaits(faitsDemandables(), TypeBF.DEMANDABLES);
+        System.out.println(demandables.toString());
+
+        System.out.println("  --> On veut prouver : " + but.toString());
+
         if(demo(but))
             System.out.println("Le fait " + but.toString() + " est bien déductible"); 
         else
@@ -109,7 +120,7 @@ public class MoteurZERO
         dem = BF.belongs(but); // Si le but est dans la BF -> vrai sinon faux
 
         //*Deuxième cas : rechercher si b détectible à partir de BR UNION BF
-        for (Regle regle : BR) //pour tout r qui appartient à la BR
+        for (Regle regle : BR.getRegles()) //pour tout r qui appartient à la BR
         {
             if (regle.belongsInConsequent(but)) // et b qui appartient aux Conséquents de la règle courante
             {
@@ -185,7 +196,7 @@ private boolean question(Fait but)
         boolean estConsequence = false;
         ArrayList<Fait> antecedents = new ArrayList<>();
 
-        for(Regle regle : BR)
+        for(Regle regle : BR.getRegles())
         {
             for (Fait fait : regle.antecedent())
             {
@@ -195,7 +206,7 @@ private boolean question(Fait but)
 
         for (Fait fait : antecedents) 
         {
-            for(Regle regle : BR) 
+            for(Regle regle : BR.getRegles()) 
             {
                 if(regle.belongsInConsequent(fait) || BF.belongs(fait)) 
                 estConsequence = true;
@@ -204,15 +215,6 @@ private boolean question(Fait but)
                 demandables.add(fait);
             estConsequence = false;
         }
-
-
-        System.out.println("test DEM");
-        for(Fait fait : demandables)
-        {
-            System.out.println(fait.toString());
-        }
-         System.out.println("test DEM");
-
         return demandables;
     }
 

@@ -57,26 +57,31 @@ public class BaseFaits
     public String toString()
     {
         String typeS ="";
-        if (type == TypeBF.FAIT_INITIAUX) 
-            typeS = "Fait initiaux";
-        else if (type == TypeBF.DEMANDABLES)
-            typeS = "Demandables";
-        else
-            typeS = "Erreur Type";
-            
+        switch (type)
+        {
+            case FAITS_INITIAUX ->  typeS = "Fait initiaux";
+            case DEMANDABLES -> typeS = "Demandables";
+            case FAITS_FINAUX -> typeS = "Faits finaux";
         
+            default -> typeS = "Erreur Type";    
+        }
+      
             
-
-        String result = "---"+typeS+"---\n\n  ";
+        String result = "--"+typeS+"--\n\n  ";
         for (Fait fait : faits) {
             result += fait.toString() + "\n  ";
         }
-        return result += "\n---"+typeS+"---\n";
+        return result += "\n--"+typeS+"--\n";
     }
 
     public List<Fait> getFaits()
     {
         return faits;
+    }
+
+    public void setType(TypeBF type)
+    {
+        this.type = type;
     }
 
 }

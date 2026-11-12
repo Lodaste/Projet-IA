@@ -2,6 +2,7 @@ package Syntaxe;
 
 public enum TypeBF 
 {
-    FAIT_INITIAUX,
+    FAITS_INITIAUX,
+    FAITS_FINAUX,
     DEMANDABLES
 }
