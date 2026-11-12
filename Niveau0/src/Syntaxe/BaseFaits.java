@@ -60,4 +60,9 @@ public class BaseFaits
         return result += "\n---Base de faits---\n";
     }
 
+    public List<Fait> getFaits()
+    {
+        return faits;
+    }
+
 }

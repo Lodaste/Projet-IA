@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
@@ -12,19 +13,12 @@ public class MoteurZERO
     {
         this.BR = BR;
         this.BF = BF;
-
     }
 
-    public MoteurZERO(List<Regle> BR, BaseFaits BF, List<String> demandables) 
-    {
-        this.BR = BR;
-        this.BF = BF;
-        this.demandables = demandables;
-    }
     List<Regle> BR;
     BaseFaits BF;
 
-    List<String> demandables; // Faire un type propre
+    BaseFaits demandables; // Faire un type propre
 
 
     public boolean VF (Fait f) {return BF.VF(f.mot());}
@@ -99,6 +93,7 @@ public class MoteurZERO
 
     public void chainageArriere(Fait but)
     {
+        demandables = new BaseFaits(faitsDemandables());
         if(demo(but))
             System.out.println("Le fait " + but.toString() + " est bien déductible"); 
         else
@@ -154,20 +149,70 @@ public class MoteurZERO
         }
         return verite;
     }
+    // À déclarer une seule fois dans la classe
+private static final Scanner scanner = new Scanner(System.in);
 
-    private boolean question(Fait but )
+private boolean question(Fait but)
+{
+    while (true)
     {
-        try ( Scanner scanner = new Scanner( System.in ) )
-        {    
-            while (scanner.hasNextBoolean()) 
-            {
-                System.out.print( "Quel valeur apportez vous au fait "+but.toString()+" ? Vrai (1) ou Faux (0) ?" );
-                return scanner.nextBoolean();
-            }    
+        System.out.print("Quelle valeur apportez-vous au fait " + but.toString() + " ? Vrai (1) ou Faux (0) ? ");
+
+        if (!scanner.hasNextLine())
+        {
+            System.out.println("Erreur lors de la demande, la valeur du fait a été attribuée à Faux");
+            return false;
         }
-        
-        System.out.println("Erreur lors de la demande, la valeur du fait a été attribué à Faux");
-        return false;
+
+        String saisie = scanner.nextLine().trim();
+
+        switch (saisie.toLowerCase())
+        {
+            case "1": case "vrai": case "true":
+                return true;
+            case "0": case "faux": case "false":
+                return false;
+            default:
+                System.out.println("Saisie invalide, merci de répondre par 1 ou 0.");
+        }
+    }
+}
+
+    public ArrayList<Fait> faitsDemandables() 
+    {
+        ArrayList<Fait> demandables = new ArrayList<>();
+        boolean estConsequence = false;
+        ArrayList<Fait> antecedents = new ArrayList<>();
+
+        for(Regle regle : BR)
+        {
+            for (Fait fait : regle.antecedent())
+            {
+                antecedents.add(fait);
+            }
+        }
+
+        for (Fait fait : antecedents) 
+        {
+            for(Regle regle : BR) 
+            {
+                if(regle.belongsInConsequent(fait) || BF.belongs(fait)) 
+                estConsequence = true;
+            }
+            if(!estConsequence) 
+                demandables.add(fait);
+            estConsequence = false;
+        }
+
+
+        System.out.println("test DEM");
+        for(Fait fait : demandables)
+        {
+            System.out.println(fait.toString());
+        }
+         System.out.println("test DEM");
+
+        return demandables;
     }
 
 

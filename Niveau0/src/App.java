@@ -62,7 +62,7 @@ public class App
 
         //BF2.add(faitCielGris);
         BF2.add(faitCielBleu);
-        BF2.add(faitSolMouille);
+        //BF2.add(faitSolMouille);
 
 
         List<Regle> BR2 = new LinkedList<>();
