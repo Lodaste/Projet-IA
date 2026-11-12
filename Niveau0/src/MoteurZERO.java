@@ -7,6 +7,7 @@ import java.util.Scanner;
 import Syntaxe.BaseFaits;
 import Syntaxe.Fait;
 import Syntaxe.Regle;
+import Syntaxe.TypeBF;
 public class MoteurZERO
 {
     public MoteurZERO(List<Regle> BR, BaseFaits BF) 
@@ -93,7 +94,7 @@ public class MoteurZERO
 
     public void chainageArriere(Fait but)
     {
-        demandables = new BaseFaits(faitsDemandables());
+        demandables = new BaseFaits(faitsDemandables(), TypeBF.DEMANDABLES);
         if(demo(but))
             System.out.println("Le fait " + but.toString() + " est bien déductible"); 
         else

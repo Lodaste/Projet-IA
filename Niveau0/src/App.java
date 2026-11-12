@@ -3,6 +3,7 @@ import java.util.List;
 import Syntaxe.BaseFaits;
 import Syntaxe.Fait;
 import Syntaxe.Regle;
+import Syntaxe.TypeBF;
 
 import java.util.LinkedList;
 
@@ -24,7 +25,7 @@ public class App
         Fait fait1 = new Fait("Il pleut", true);
         Fait fait2 = new Fait("Le ciel est gris", true);  
         Fait fait3 = new Fait("Il y a du vent", false);
-        BaseFaits BF = new BaseFaits();
+        BaseFaits BF = new BaseFaits(TypeBF.FAIT_INITIAUX);
         BF.add(fait1);
         BF.add(fait2);
         BF.add(fait3);
@@ -54,7 +55,7 @@ public class App
     
     static void TestArriere0()
     {
-        BaseFaits BF2 = new BaseFaits();
+        BaseFaits BF2 = new BaseFaits(TypeBF.FAIT_INITIAUX);
         
         //Fait faitCielGris = new Fait("Le ciel est gris");
         Fait faitCielBleu = new Fait("Le ciel est bleu", false);
@@ -62,7 +63,7 @@ public class App
 
         //BF2.add(faitCielGris);
         BF2.add(faitCielBleu);
-        //BF2.add(faitSolMouille);
+        BF2.add(faitSolMouille);
 
 
         List<Regle> BR2 = new LinkedList<>();

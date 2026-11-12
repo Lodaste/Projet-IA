@@ -6,15 +6,18 @@ import java.util.List;
 public class BaseFaits 
 {
     List<Fait> faits;
+    TypeBF type;
 
-    public BaseFaits(List<Fait> faits)
+    public BaseFaits(List<Fait> faits, TypeBF type)
     {
         this.faits = faits;
+        this.type = type;
     }
 
-    public BaseFaits()
+    public BaseFaits(TypeBF type)
     {
         faits = new ArrayList<>();
+        this.type = type;
     }
 
     public void add(Fait fait)
@@ -53,11 +56,22 @@ public class BaseFaits
     @Override 
     public String toString()
     {
-        String result = "---Base de faits---\n\n  ";
+        String typeS ="";
+        if (type == TypeBF.FAIT_INITIAUX) 
+            typeS = "Fait initiaux";
+        else if (type == TypeBF.DEMANDABLES)
+            typeS = "Demandables";
+        else
+            typeS = "Erreur Type";
+            
+        
+            
+
+        String result = "---"+typeS+"---\n\n  ";
         for (Fait fait : faits) {
             result += fait.toString() + "\n  ";
         }
-        return result += "\n---Base de faits---\n";
+        return result += "\n---"+typeS+"---\n";
     }
 
     public List<Fait> getFaits()
